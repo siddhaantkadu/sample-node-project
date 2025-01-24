@@ -11,7 +11,7 @@ pipeline {
         stage('NPM Install') { 
             steps { 
                 sh '''
-                npm install 
+                    npm install 
                 '''
             }
         }
@@ -22,7 +22,7 @@ pipeline {
                 """
             }
         }
-        state('Run Application') { 
+        stage('Run Application') { 
             steps { 
                 sh """
                     docker container run -P -d siddhaant/sample-node-project-${BUILD_NUMBER} 
