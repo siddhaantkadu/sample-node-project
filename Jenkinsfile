@@ -18,9 +18,9 @@ pipeline {
         stage('Docker CleanUp') { 
             steps { 
                 sh """
-                docker system prune -a --volumes -f
-                docker rm -f $(docker ps -aq)
-                docker rmi -f $(docker images -aq)
+                    docker system prune -a --volumes -f
+                    docker rm -f $(docker ps -aq)
+                    docker rmi -f $(docker images -aq)
                 """
             }
         }
