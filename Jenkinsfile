@@ -15,10 +15,24 @@ pipeline {
                 """
             }
         }
-        stage('Docker CleanUp') { 
+        stage('Stop Running Container') { 
             steps { 
                 sh """
-                    docker stop $(docker ps -aq) && docker rm -f $(docker ps -aq) && docker rmi -f $(docker images -aq) && docker system prune -a --volumes -f
+                    docker stop $(docker ps -aq) 
+                """
+            }
+        }
+        stage('Remove All Docker Images') { 
+            steps { 
+                sh """
+                    docker rmi -f $(docker images -aq) 
+                """
+            }
+        }
+        stage('Remove Docker Volume') { 
+            steps { 
+                sh """
+                    docker system prune -a --volumes -f
                 """
             }
         }
