@@ -17,7 +17,11 @@ pipeline {
         }
         stage('Docker CleanUp') { 
             steps { 
-                sh "docker system prune -a --volumes -f"
+                sh """
+                docker system prune -a --volumes -f
+                docker rm -f $(docker ps -aq)
+                docker rmi -f $(docker images -aq)
+                """
             }
         }
         stage('Build Docker Image') { 
@@ -30,7 +34,7 @@ pipeline {
         stage('Run Application') { 
             steps { 
                 sh """
-                    docker container run -P -d siddhaant/sample-node-project-${BUILD_NUMBER} 
+                    docker container run -P -d --name nodejs-${BUILD_NUMBER} siddhaant/sample-node-project-${BUILD_NUMBER} 
                 """
             }
         }
