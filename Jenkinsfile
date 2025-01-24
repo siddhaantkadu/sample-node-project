@@ -15,9 +15,18 @@ pipeline {
                 '''
             }
         }
-        stage('Start NodeJS Application') { 
+        stage('Build Docker Image') { 
             steps { 
-                    sh 'npm start'
+                sh """
+                    docker image build -t siddhaant/sample-node-project-${BUILD_NUMBER} .
+                """
+            }
+        }
+        state('Run Application') { 
+            steps { 
+                sh """
+                    docker container run -P -d siddhaant/sample-node-project-${BUILD_NUMBER} 
+                """
             }
         }
     }
