@@ -18,9 +18,8 @@ pipeline {
         stage('CleanUp Docker') { 
             steps { 
                 sh '''
-                    docker container rm -f $(docker ps -aq) 
-                    docker image rm -f $(docker images -aq)
-                    docker rmi -f $(docker images -aq)
+                 
+
                 '''
             }
         }
