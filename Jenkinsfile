@@ -10,44 +10,44 @@ pipeline {
         }
         stage('NPM Install') { 
             steps { 
-                sh """
+                sh '''
                     npm install 
-                """
+                '''
             }
         }
         stage('Stop Running Container') { 
             steps { 
-                sh """
+                sh '''
                     docker stop $(docker ps -aq) 
-                """
+                '''
             }
         }
         stage('Remove All Docker Images') { 
             steps { 
-                sh """
+                sh '''
                     docker rmi -f $(docker images -aq) 
-                """
+                '''
             }
         }
         stage('Remove Docker Volume') { 
             steps { 
-                sh """
+                sh '''
                     docker system prune -a --volumes -f
-                """
+                '''
             }
         }
         stage('Build Docker Image') { 
             steps { 
-                sh """
+                sh '''
                     docker image build -t siddhaant/sample-node-project-${BUILD_NUMBER} .
-                """
+                '''
             }
         }
         stage('Run Application') { 
             steps { 
-                sh """
+                sh '''
                     docker container run -p 8443:3005 -d --name nodejs-${BUILD_NUMBER} siddhaant/sample-node-project-${BUILD_NUMBER} 
-                """
+                '''
             }
         }
         stage('Validate Application') { 
