@@ -1,5 +1,10 @@
 pipeline { 
-    agent { label 'JENKINS-AGENT-1' }
+    agent { 
+        label 'JENKINS-AGENT-1' 
+        }
+    triggers { 
+        pollSCM('* * * * *') 
+        }
 
     stages { 
         stage('SCM Checkout') { 
