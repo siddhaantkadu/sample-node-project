@@ -18,8 +18,7 @@ pipeline {
         stage('CleanUp Docker') { 
             steps { 
                 sh '''
-                 
-
+                 docker container rm -f $(docker container ls -qa)
                 '''
             }
         }
