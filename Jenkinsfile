@@ -34,7 +34,7 @@ pipeline {
         stage('Run Application') { 
             steps { 
                 sh """
-                    docker container run -P -d --name nodejs-${BUILD_NUMBER} siddhaant/sample-node-project-${BUILD_NUMBER} 
+                    docker container run -p 8443:3005 -d --name nodejs-${BUILD_NUMBER} siddhaant/sample-node-project-${BUILD_NUMBER} 
                 """
             }
         }
