@@ -11,16 +11,13 @@ pipeline {
         stage('NPM Install') { 
             steps { 
                 sh '''
-                cd sample-node-project
                 npm install 
                 '''
             }
         }
         stage('Start NodeJS Application') { 
             steps { 
-                dir('sample-node-project') { 
                     sh 'npm start'
-                } 
             }
         }
     }
