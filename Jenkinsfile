@@ -15,6 +15,11 @@ pipeline {
                 '''
             }
         }
+        stage('Docker CleanUp') { 
+            steps { 
+                sh "docker system prune -a --volumes -f"
+            }
+        }
         stage('Build Docker Image') { 
             steps { 
                 sh """
@@ -27,6 +32,11 @@ pipeline {
                 sh """
                     docker container run -P -d siddhaant/sample-node-project-${BUILD_NUMBER} 
                 """
+            }
+        }
+        stage('Validate Application') { 
+            steps { 
+                sh "docker container ls -a"
             }
         }
     }
